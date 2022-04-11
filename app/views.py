@@ -20,7 +20,7 @@ from flask_wtf.csrf import generate_csrf
 def index():
     return jsonify(message="This is the beginning of our API")
 
-@app.route("/api/upload",methods=["POST"])
+@app.route("/api/upload",methods=["POST","GET"])
 def upload():
     uploadform=UploadForm()
 
@@ -35,8 +35,9 @@ def upload():
         flash('There was an error in adding the image','danger')
         return jsonify(errors = form_errors(uploadform))
 
-
-
+@app.route('/api/csrf-token', methods=['GET'])
+def get_csrf():
+ return jsonify({'csrf_token': generate_csrf()})
 
 
 ###
